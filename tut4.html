@@ -1,0 +1,39 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Handlebar tut3</title>
+</head>
+<body>
+    <!-- block helpers -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/handlebars.js" type="text/javascript"></script>
+<script id="block-template" type="text/x-handlebars-template">
+{{#noop param1}}
+    {{foo}}
+{{/noop}}
+</script>
+
+<script>
+//Handlebars.registerHelper('noop', function(options) {
+//  return options.fn(this);
+//});
+    
+Handlebars.registerHelper('noop', function(param1,options) {
+    var str = "";
+    
+    for(var i = 0;i<param1.length;i++){
+        str = options.fn(param1[i]) ;
+    }
+    return str;
+});
+var source   = $("#block-template").html();
+var template = Handlebars.compile(source);
+var context = {param1:[{foo:"bar"}]};
+    
+var html = template(context);
+$("body").html(html);
+</script>
+    
+</body>
+</html>
